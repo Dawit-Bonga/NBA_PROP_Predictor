@@ -14,8 +14,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-DATA_PATH = "../data/processed/training_data1.csv"
-MODELS_DIR = "../models/"
+DATA_PATH = "../data/processed/training_data.csv"
+MODELS_DIR = "../models/current/"
 
 # Load feature sets from train.py
 POINTS_FEATURES = [

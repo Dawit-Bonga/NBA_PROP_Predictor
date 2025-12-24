@@ -1,0 +1,5 @@
+player,stat,line,prediction,l5_avg,last_game,edge,abs_edge,confidence,recommendation
+Shai Gilgeous-Alexander,Points,32.5,25.101706,32.8,2025-12-23,-7.398294,7.398294,High,UNDER
+Jalen Brunson,Points,28.5,23.494946,31.6,2025-12-21,-5.005054000000001,5.005054000000001,High,UNDER
+Anthony Edwards,Points,28.5,23.623207,28.2,2025-12-23,-4.876792999999999,4.876792999999999,Medium,UNDER
+Jamal Murray,Points,24.5,20.30105,27.8,2025-12-23,-4.19895,4.19895,Medium,UNDER

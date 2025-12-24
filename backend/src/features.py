@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 INPUT_PATH = '../data/raw/nba_logs.csv'
-OUTPUT_PATH = "../data/processed/training_data1.csv"
+OUTPUT_PATH = "../data/processed/training_data.csv"
 
 def get_opponent(matchup):
     """Extract opponent team from matchup string"""

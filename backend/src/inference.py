@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 # --- CONFIG ---
-MODEL_PATH = "../models/nba_xgb.json"
+MODEL_PATH = "../models/current/pts_model.json"
 
 def load_model():
     # Check if model exists

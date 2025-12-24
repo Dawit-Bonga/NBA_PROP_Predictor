@@ -248,9 +248,9 @@ def run_realtime_prediction():
     print("="*60)
     
     # Paths
-    TODAYS_PROPS = '../data/todays_props.csv'
-    MODELS_DIR = '../models/'
-    OUTPUT_PATH = '../data/analysis_results.csv'
+    TODAYS_PROPS = '../data/predictions/todays_props.csv'
+    MODELS_DIR = '../models/current/'
+    OUTPUT_PATH = '../data/predictions/analysis_results.csv'
     
     # Check if props file exists
     if not os.path.exists(TODAYS_PROPS):

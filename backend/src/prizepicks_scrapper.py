@@ -14,7 +14,7 @@ from datetime import datetime
 import os
 
 # Configuration
-OUTPUT_PATH = '../data/todays_props.csv'
+OUTPUT_PATH = '../data/predictions/todays_props.csv'
 PRIZEPICKS_URL = 'https://app.prizepicks.com/'
 TARGET_SPORT = 'NBA'  # Focus on NBA
 

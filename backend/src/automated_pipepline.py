@@ -13,11 +13,11 @@ sys.path.append(os.path.dirname(__file__))
 
 # Configuration
 DATA_DIR = '../data/'
-MODELS_DIR = '../models/'
-TRAINING_DATA = os.path.join(DATA_DIR, 'processed/training_data1.csv')
-TODAYS_PROPS = os.path.join(DATA_DIR, 'todays_props.csv')
-TOP_BETS_OUTPUT = os.path.join(DATA_DIR, 'top_bets.csv')
-ANALYSIS_OUTPUT = os.path.join(DATA_DIR, 'analysis_results.csv')
+MODELS_DIR = '../models/current/'
+TRAINING_DATA = os.path.join(DATA_DIR, 'processed/training_data.csv')
+TODAYS_PROPS = os.path.join(DATA_DIR, 'predictions/todays_props.csv')
+TOP_BETS_OUTPUT = os.path.join(DATA_DIR, 'predictions/top_bets.csv')
+ANALYSIS_OUTPUT = os.path.join(DATA_DIR, 'predictions/analysis_results.csv')
 
 # Thresholds
 MODEL_MAX_AGE_DAYS = 7  # Retrain if model is older than this
@@ -49,7 +49,7 @@ def check_model_freshness():
     
     return needs_training
 
-def scrape_prizepicks():
+def scrape_prizepicks(headless=True):
     """Run PrizePicks scraper"""
     print("\n" + "="*60)
     print("STEP 1: SCRAPING PRIZEPICKS")
@@ -57,7 +57,7 @@ def scrape_prizepicks():
     
     try:
         from prizepicks_scrapper import scrape_prizepicks as scraper
-        df = scraper()
+        df = scraper(headless=headless)
         
         if df is not None and len(df) > 0:
             print(f"✅ Scraped {len(df)} props")
@@ -195,7 +195,7 @@ def pick_best_bets():
         traceback.print_exc()
         return False
 
-def run_full_pipeline(force_retrain=False):
+def run_full_pipeline(force_retrain=False, visible=False):
     """Run the complete automated pipeline"""
     print("\n" + "#"*60)
     print("# 🏀 NBA PROP PROJECTOR - AUTOMATED PIPELINE")
@@ -203,7 +203,7 @@ def run_full_pipeline(force_retrain=False):
     print(f"\n⏰ Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
     # Step 1: Scrape PrizePicks
-    if not scrape_prizepicks():
+    if not scrape_prizepicks(headless=not visible):
         print("\n❌ Pipeline failed: No props data available")
         return False
     
@@ -244,8 +244,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='NBA Prop Projector Automated Pipeline')
     parser.add_argument('--force-retrain', action='store_true', 
                        help='Force model retraining even if models are fresh')
+    parser.add_argument('--visible', action='store_true',
+                       help='Run browser in visible mode (for handling CAPTCHA)')
     
     args = parser.parse_args()
     
-    success = run_full_pipeline(force_retrain=args.force_retrain)
+    success = run_full_pipeline(force_retrain=args.force_retrain, visible=args.visible)
     sys.exit(0 if success else 1)

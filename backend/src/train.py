@@ -8,12 +8,14 @@ from datetime import datetime
 import os
 
 # ==================== CONFIGURATION ====================
-DATA_PATH = "../data/processed/training_data1.csv"
+DATA_PATH = "../data/processed/training_data.csv"
 MODELS_DIR = "../models/"
+CURRENT_MODELS_DIR = "../models/current/"
 RESULTS_DIR = "../results/"
 
 # Create directories if they don't exist
 os.makedirs(MODELS_DIR, exist_ok=True)
+os.makedirs(CURRENT_MODELS_DIR, exist_ok=True)
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
 # Training configuration
@@ -239,16 +241,23 @@ def train_prop_model(df, target_name, features, params):
     
     # Save model
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    model_path = os.path.join(MODELS_DIR, f"{target_name.lower()}_model.json")
-    versioned_path = os.path.join(MODELS_DIR, f"{target_name.lower()}_model_v{timestamp}.json")
+    date_stamp = datetime.now().strftime('%Y%m%d')
+    
+    # Save current model (actively used)
+    model_path = os.path.join(CURRENT_MODELS_DIR, f"{target_name.lower()}_model.json")
+    
+    # Save versioned backup
+    archive_dir = os.path.join(MODELS_DIR, f"archived/v{date_stamp}/")
+    os.makedirs(archive_dir, exist_ok=True)
+    versioned_path = os.path.join(archive_dir, f"{target_name.lower()}_model_v{timestamp}.json")
     
     # Use get_booster() for compatibility
     model.get_booster().save_model(model_path)
     model.get_booster().save_model(versioned_path)
     
     print(f"\n💾 Model Saved:")
-    print(f"  Primary: {model_path}")
-    print(f"  Backup:  {versioned_path}")
+    print(f"  Current:  {model_path}")
+    print(f"  Archived: {versioned_path}")
     
     # Save metrics and metadata
     results = {
@@ -336,7 +345,7 @@ def train_all_models():
     
     print(summary_df.to_string(index=False))
     print("="*60)
-    print(f"\n✅ All models trained and saved to: {MODELS_DIR}")
+    print(f"\n✅ All models trained and saved to: {CURRENT_MODELS_DIR}")
     print(f"✅ Results saved to: {RESULTS_DIR}")
     print("\n🎯 Ready for inference! Use inference.py to make predictions.\n")
     
