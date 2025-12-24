@@ -233,3 +233,117 @@ def get_realtime_prediction_features(player_name, opponent, is_home, rest_days, 
     ]}
     
     return pts_features, reb_features, ast_features, recent_games
+
+def run_realtime_prediction():
+    """
+    Load today's props from CSV, generate predictions, and save results
+    """
+    import pandas as pd
+    import xgboost as xgb
+    import os
+    from datetime import datetime
+    
+    print("\n" + "="*60)
+    print("🔮 GENERATING PREDICTIONS")
+    print("="*60)
+    
+    # Paths
+    TODAYS_PROPS = '../data/todays_props.csv'
+    MODELS_DIR = '../models/'
+    OUTPUT_PATH = '../data/analysis_results.csv'
+    
+    # Check if props file exists
+    if not os.path.exists(TODAYS_PROPS):
+        print(f"❌ Props file not found: {TODAYS_PROPS}")
+        return False
+    
+    # Load props
+    print(f"\n📂 Loading props from: {TODAYS_PROPS}")
+    props_df = pd.read_csv(TODAYS_PROPS)
+    print(f"  Found {len(props_df)} props")
+    
+    # Load models
+    print(f"\n🤖 Loading models from: {MODELS_DIR}")
+    models = {}
+    for stat_type in ['pts', 'reb', 'ast']:
+        model_path = os.path.join(MODELS_DIR, f"{stat_type}_model.json")
+        if os.path.exists(model_path):
+            model = xgb.XGBRegressor()
+            model.load_model(model_path)
+            models[stat_type.upper()] = model
+            print(f"  ✓ Loaded {stat_type.upper()} model")
+        else:
+            print(f"  ⚠️ Missing {stat_type.upper()} model: {model_path}")
+    
+    if not models:
+        print("❌ No models found!")
+        return False
+    
+    # Generate predictions
+    results = []
+    print(f"\n🔍 Generating predictions...")
+    
+    for idx, row in props_df.iterrows():
+        player = row['player']
+        stat_type = row['stat_mapped']
+        line = row['line']
+        
+        print(f"\n  📊 {player} - {stat_type} (Line: {line})")
+        
+        # Check if we have a model for this stat type
+        if stat_type not in models:
+            print(f"    ⚠️ No model for {stat_type}, skipping...")
+            continue
+        
+        # For now, use dummy features (opponent="N/A", home=True, rest_days=1)
+        # In production, you'd fetch actual game info
+        try:
+            pts_features, reb_features, ast_features, recent_games = get_realtime_prediction_features(
+                player, 
+                opponent="N/A",  # TODO: Get actual opponent
+                is_home=True,     # TODO: Get actual home/away
+                rest_days=1       # TODO: Get actual rest days
+            )
+            
+            if stat_type == 'PTS' and pts_features:
+                features_df = pd.DataFrame([pts_features])
+                prediction = models['PTS'].predict(features_df)[0]
+            elif stat_type == 'REB' and reb_features:
+                features_df = pd.DataFrame([reb_features])
+                prediction = models['REB'].predict(features_df)[0]
+            elif stat_type == 'AST' and ast_features:
+                features_df = pd.DataFrame([ast_features])
+                prediction = models['AST'].predict(features_df)[0]
+            else:
+                print(f"    ⚠️ Could not generate features")
+                continue
+            
+            # Calculate L5 average for context
+            l5_avg = recent_games.tail(5)[stat_type].mean() if recent_games is not None and len(recent_games) > 0 else 0
+            last_game_date = recent_games.iloc[0]['GAME_DATE'] if recent_games is not None and len(recent_games) > 0 else None
+            
+            print(f"    ✓ Prediction: {prediction:.1f} (L5 Avg: {l5_avg:.1f})")
+            
+            results.append({
+                'player': player,
+                'stat': row['stat'],
+                'line': line,
+                'prediction': prediction,
+                'l5_avg': l5_avg,
+                'last_game': last_game_date,
+                'edge': prediction - line
+            })
+            
+        except Exception as e:
+            print(f"    ❌ Error: {e}")
+            continue
+    
+    # Save results
+    if results:
+        results_df = pd.DataFrame(results)
+        results_df.to_csv(OUTPUT_PATH, index=False)
+        print(f"\n✅ Saved {len(results_df)} predictions to: {OUTPUT_PATH}")
+        return True
+    else:
+        print("\n⚠️ No predictions generated")
+        return False
