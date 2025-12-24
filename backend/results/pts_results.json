@@ -1,0 +1,173 @@
+{
+  "target": "PTS",
+  "timestamp": "20251224_003212",
+  "train_samples": 31467,
+  "test_samples": 7867,
+  "features": [
+    "L5_PTS",
+    "L10_PTS",
+    "SEASON_AVG_PTS",
+    "L10_PTS_STD",
+    "RECENT_TREND_PTS",
+    "IS_HOME",
+    "REST_DAYS",
+    "IS_BACK_TO_BACK",
+    "IS_RESTED",
+    "L5_MIN",
+    "L10_MIN",
+    "USAGE_RATE",
+    "FT_RATE",
+    "PPM_L5",
+    "PPM_L10",
+    "L5_FG_PCT",
+    "L5_FG3_PCT",
+    "L5_FG3M",
+    "L5_REB",
+    "L5_AST",
+    "VS_OPP_AVG_PTS",
+    "OPP_DEF_STRENGTH_PTS",
+    "OPP_PACE",
+    "TEAM_PACE",
+    "L5_WIN_PCT",
+    "L5_PLUS_MINUS"
+  ],
+  "num_features": 26,
+  "hyperparameters": {
+    "n_estimators": 1000,
+    "learning_rate": 0.05,
+    "max_depth": 5,
+    "min_child_weight": 3,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "gamma": 0.1,
+    "reg_alpha": 0.1,
+    "reg_lambda": 1.0,
+    "random_state": 42
+  },
+  "cv_mae": 5.062578392028809,
+  "cv_std": 0.14191416845321259,
+  "train_metrics": {
+    "mae": 3.8340225219726562,
+    "rmse": 4.899693864873847,
+    "r2": 0.6962240934371948,
+    "within_1": 16.738170146502686,
+    "within_2": 32.82486414338831,
+    "within_3": 47.41157402993612,
+    "within_5": 71.22382178154892
+  },
+  "test_metrics": {
+    "mae": 4.983973026275635,
+    "rmse": 6.483693723623735,
+    "r2": 0.43640202283859253,
+    "within_1": 13.07995423922715,
+    "within_2": 25.931104614211264,
+    "within_3": 38.14668869963137,
+    "within_5": 60.35337485699759
+  },
+  "feature_importance": [
+    {
+      "feature": "SEASON_AVG_PTS",
+      "importance": 0.3183380663394928
+    },
+    {
+      "feature": "L10_PTS",
+      "importance": 0.2365320771932602
+    },
+    {
+      "feature": "L5_PTS",
+      "importance": 0.09648109972476959
+    },
+    {
+      "feature": "TEAM_PACE",
+      "importance": 0.03253650292754173
+    },
+    {
+      "feature": "PPM_L10",
+      "importance": 0.017038311809301376
+    },
+    {
+      "feature": "L5_MIN",
+      "importance": 0.0168603602796793
+    },
+    {
+      "feature": "USAGE_RATE",
+      "importance": 0.016001233831048012
+    },
+    {
+      "feature": "FT_RATE",
+      "importance": 0.01600031554698944
+    },
+    {
+      "feature": "REST_DAYS",
+      "importance": 0.015315393917262554
+    },
+    {
+      "feature": "L5_AST",
+      "importance": 0.01523036602884531
+    },
+    {
+      "feature": "L5_FG3_PCT",
+      "importance": 0.015036185272037983
+    },
+    {
+      "feature": "L10_MIN",
+      "importance": 0.014971398748457432
+    },
+    {
+      "feature": "L5_FG3M",
+      "importance": 0.014918046072125435
+    },
+    {
+      "feature": "L5_FG_PCT",
+      "importance": 0.014756783843040466
+    },
+    {
+      "feature": "VS_OPP_AVG_PTS",
+      "importance": 0.014718972146511078
+    },
+    {
+      "feature": "PPM_L5",
+      "importance": 0.014560602605342865
+    },
+    {
+      "feature": "OPP_DEF_STRENGTH_PTS",
+      "importance": 0.014293602667748928
+    },
+    {
+      "feature": "L5_PLUS_MINUS",
+      "importance": 0.013828233815729618
+    },
+    {
+      "feature": "L10_PTS_STD",
+      "importance": 0.01379656046628952
+    },
+    {
+      "feature": "RECENT_TREND_PTS",
+      "importance": 0.01365081500262022
+    },
+    {
+      "feature": "L5_REB",
+      "importance": 0.013639151118695736
+    },
+    {
+      "feature": "OPP_PACE",
+      "importance": 0.013336055912077427
+    },
+    {
+      "feature": "IS_HOME",
+      "importance": 0.013216925784945488
+    },
+    {
+      "feature": "IS_BACK_TO_BACK",
+      "importance": 0.012460513040423393
+    },
+    {
+      "feature": "L5_WIN_PCT",
+      "importance": 0.01226644217967987
+    },
+    {
+      "feature": "IS_RESTED",
+      "importance": 0.010216002352535725
+    }
+  ]
+}

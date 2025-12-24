@@ -1,0 +1,138 @@
+{
+  "target": "REB",
+  "timestamp": "20251224_003224",
+  "train_samples": 31467,
+  "test_samples": 7867,
+  "features": [
+    "L5_REB",
+    "L10_REB",
+    "L10_REB_STD",
+    "RECENT_TREND_REB",
+    "IS_HOME",
+    "REST_DAYS",
+    "IS_BACK_TO_BACK",
+    "IS_RESTED",
+    "L5_MIN",
+    "L10_MIN",
+    "USAGE_RATE",
+    "L5_PTS",
+    "L5_AST",
+    "VS_OPP_AVG_REB",
+    "OPP_DEF_STRENGTH_REB",
+    "OPP_PACE",
+    "TEAM_PACE",
+    "L5_WIN_PCT",
+    "L5_PLUS_MINUS"
+  ],
+  "num_features": 19,
+  "hyperparameters": {
+    "n_estimators": 1000,
+    "learning_rate": 0.05,
+    "max_depth": 5,
+    "min_child_weight": 3,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "gamma": 0.1,
+    "reg_alpha": 0.1,
+    "reg_lambda": 1.0,
+    "random_state": 42
+  },
+  "cv_mae": 2.0811092853546143,
+  "cv_std": 0.0489329661053597,
+  "train_metrics": {
+    "mae": 1.6197524070739746,
+    "rmse": 2.083284555499937,
+    "r2": 0.6471813321113586,
+    "within_1": 38.650014300695965,
+    "within_2": 69.10096291352846,
+    "within_3": 86.60501477738583,
+    "within_5": 97.70235484793594
+  },
+  "test_metrics": {
+    "mae": 2.105743885040283,
+    "rmse": 2.7622440167749893,
+    "r2": 0.35669082403182983,
+    "within_1": 30.964789627558154,
+    "within_2": 57.035718825473495,
+    "within_3": 76.36964535401042,
+    "within_5": 93.05961611796111
+  },
+  "feature_importance": [
+    {
+      "feature": "L10_REB",
+      "importance": 0.4031029939651489
+    },
+    {
+      "feature": "L5_REB",
+      "importance": 0.18136337399482727
+    },
+    {
+      "feature": "VS_OPP_AVG_REB",
+      "importance": 0.03702224791049957
+    },
+    {
+      "feature": "RECENT_TREND_REB",
+      "importance": 0.02888144925236702
+    },
+    {
+      "feature": "L10_MIN",
+      "importance": 0.027493886649608612
+    },
+    {
+      "feature": "REST_DAYS",
+      "importance": 0.025596974417567253
+    },
+    {
+      "feature": "L10_REB_STD",
+      "importance": 0.025122975930571556
+    },
+    {
+      "feature": "TEAM_PACE",
+      "importance": 0.024627070873975754
+    },
+    {
+      "feature": "L5_MIN",
+      "importance": 0.02431948110461235
+    },
+    {
+      "feature": "L5_PTS",
+      "importance": 0.02418043650686741
+    },
+    {
+      "feature": "L5_AST",
+      "importance": 0.023858413100242615
+    },
+    {
+      "feature": "OPP_PACE",
+      "importance": 0.023586062714457512
+    },
+    {
+      "feature": "USAGE_RATE",
+      "importance": 0.023558681830763817
+    },
+    {
+      "feature": "OPP_DEF_STRENGTH_REB",
+      "importance": 0.02316438965499401
+    },
+    {
+      "feature": "L5_PLUS_MINUS",
+      "importance": 0.02271207608282566
+    },
+    {
+      "feature": "L5_WIN_PCT",
+      "importance": 0.022577576339244843
+    },
+    {
+      "feature": "IS_HOME",
+      "importance": 0.020277846604585648
+    },
+    {
+      "feature": "IS_RESTED",
+      "importance": 0.019710030406713486
+    },
+    {
+      "feature": "IS_BACK_TO_BACK",
+      "importance": 0.018844060599803925
+    }
+  ]
+}
