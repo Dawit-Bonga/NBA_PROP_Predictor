@@ -53,10 +53,13 @@ logs/
 # backend/data/processed/*.csv
 
 # Model archives (optional - uncomment to exclude old model versions)
-# backend/models/archived/
+backend/models/archived/
 
 # Predictions (optional - uncomment to exclude prediction outputs)
 # backend/data/predictions/*.csv
+
+# Scraper debug output
+backend/data/debug_card.html
 
 # Testing
 .pytest_cache/
