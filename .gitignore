@@ -69,3 +69,16 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
+
+
+backend/data/cache/
+backend/data/raw/*.csv
+backend/data/processed/*.csv
+backend/data/predictions/*.csv
+backend/models/current/*.json
+backend/models/current/*.meta.json
+backend/models/current/shared_context.json
+backend/models/archived/
+backend/results/*.json
+backend/src/__pycache__/
+*.pyc
